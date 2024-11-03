@@ -14,17 +14,6 @@ local function createBlip()
     return blipId
 end
 
--- Utilitaire pour récupérer la taille de la table
-local function table_size(list)
-    local count = 0
-
-    for _ in pairs(list) do
-        count = count + 1
-    end
-
-    return count
-end
-
 -- Fonction pour créer le thread qui gère le marker ainsi que le popup d'aide et l'ouverture du menu
 local function createZone()
     CreateThread(function()
@@ -78,6 +67,8 @@ RegisterNetEvent('cali-test-bateau:boat_list', function(data)
     categories = data
 end)
 
+-- Event utilitaire pour que le serveur puisse récupérer les données du véhicule en train de spawn
+-- Seul le client a cette information donc on est obligé de passer par le client pour la récupérer
 RegisterNetEvent('cali-test-bateau:request_vehicle_data', function(plate, vehicleNetworkId)
     TriggerServerEvent('cali-test-bateau:vehicle_data', plate, ESX.Game.GetVehicleProperties(NetworkGetEntityFromNetworkId(vehicleNetworkId)))
 end)
